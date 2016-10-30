@@ -3,7 +3,7 @@ Respository for pango environment setup scripts
 
 ### Install mongo and docker
 
-Setps to install mongo and docker on pango ec2 instances:
+Steps to install mongo and docker on pango ec2 instances:
 
 1) Login to ec2 instance
 

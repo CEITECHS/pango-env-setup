@@ -111,6 +111,8 @@ setup_pango_collections(){
 	wget https://raw.githubusercontent.com/CEITECHS/pango-env-setup/master/data/user-data.json
 	mongoimport --db pango --collection user --file user-data.json
 	mongoimport --db pango --collection propertyunit --file propertyunit-data.json	
+	rm user-data.json
+	rm propertyunit-data.json
 }
 
 # Main starts here ......

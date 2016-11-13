@@ -59,9 +59,9 @@ fi
 
 create_yum_mongo_repo_file(){
     yum_file=/etc/yum.repos.d/mongodb-org-3.0.repo
-	echo "[mongodb-org-2.6]" > ${yum_file}
-	echo "name=MongoDB 2.6 Repository" >> ${yum_file}
-	echo "baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/" >> ${yum_file}
+	echo "[mongodb-org-3.0]" > ${yum_file}
+	echo "name=MongoDB 3.0 Repository" >> ${yum_file}
+	echo "baseurl=https://repo.mongodb.org/yum/amazon/2013.03/mongodb-org/3.0/x86_64/" >> ${yum_file}
 	echo "gpgcheck=0" >> ${yum_file}
 	echo "enabled=1" >> ${yum_file}
 }

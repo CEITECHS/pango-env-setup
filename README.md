@@ -16,5 +16,13 @@ Steps to install mongo and docker on pango ec2 instances:
 
      wget -qO- https://get.docker.com/ |sudo sh
      sudo service docker  start
+     
+Running Services in QA: 
+
+sudo docker run -d -p 8888:8888 -e spring.cloud.config.server.git.uri=https://github.com/CEITECHS/pango-configs -e spring.cloud.config.server.git.searchPaths={profile} --name config-server iamiddy/pango-config-server 
+
+sudo docker run -d  -p 8090:8090 -e spring.cloud.config.uri=http://<<EC2_HOSTNAME>>:8888 -e spring.profiles.active=qa -e pango.domain.service.db.host.name=<<EC2_HOSTNAME>>:27017 --name pago-api-server  iamiddy/pango-service-apis
+
+
 
 

@@ -33,6 +33,8 @@ OPERATING_SYSTEM=`cat /etc/os-release |grep ^ID=| cut -d "=" -f2|sed -e 's/^"//'
 # Main method which installs mongo and then configures the mongo for pango usage
 main(){
 install_mongo
+# sleep for sometime to make sure mongo has started
+sleep 30
 setup_pango_users
 setup_pango_collections
 }
@@ -49,6 +51,8 @@ elif [[ ${OPERATING_SYSTEM} == "rhel"  || ${OPERATING_SYSTEM} == "amzn" ]];
 then
 	create_yum_mongo_repo_file
 	yum install -y mongodb-org
+	# Edit the config file so that mongo binds to all interfaces instead of bust 127.0.0.1
+	sed -i '/#bindIp/! s/bindIp:/#bindIp:/' /etc/mongod.conf
 	service mongod start
 	chkconfig mongod on
 else

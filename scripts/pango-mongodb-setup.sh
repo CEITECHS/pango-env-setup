@@ -44,7 +44,7 @@ install_mongo() {
 if [[ $OPERATING_SYSTEM == "unix" ]];
 then
 	 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-	 echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+	 echo "deb http://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
 	 apt-get update
      apt-get install -y mongodb-org
 	 service mongod start
@@ -64,9 +64,9 @@ fi
 
 create_yum_mongo_repo_file(){
     yum_file=/etc/yum.repos.d/mongodb-org-3.0.repo
-	echo "[mongodb-org-3.0]" > ${yum_file}
-	echo "name=MongoDB 3.0 Repository" >> ${yum_file}
-	echo "baseurl=https://repo.mongodb.org/yum/amazon/2013.03/mongodb-org/3.0/x86_64/" >> ${yum_file}
+	echo "[mongodb-org-3.2]" > ${yum_file}
+	echo "name=MongoDB 3.2 Repository" >> ${yum_file}
+	echo "baseurl=https://repo.mongodb.org/yum/amazon/2013.03/mongodb-org/3.2/x86_64/" >> ${yum_file}
 	echo "gpgcheck=0" >> ${yum_file}
 	echo "enabled=1" >> ${yum_file}
 }

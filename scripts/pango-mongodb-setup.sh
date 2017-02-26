@@ -114,9 +114,9 @@ fi
 setup_pango_collections(){
 	wget https://raw.githubusercontent.com/CEITECHS/pango-env-setup/master/data/propertyunit-data.json
 	wget https://raw.githubusercontent.com/CEITECHS/pango-env-setup/master/data/user-data.json
-	mongo pango --eval 'db.propertyUnit.createIndex( { "location" : "2dsphere" } );' 2>/dev/null
 	mongoimport --db pango --collection user --file user-data.json
 	mongoimport --db pango --collection propertyunit --file propertyunit-data.json	
+	mongo pango --eval 'db.propertyunit.createIndex( { "location" : "2dsphere" } );' 2>/dev/null
 	rm user-data.json
 	rm propertyunit-data.json
 }

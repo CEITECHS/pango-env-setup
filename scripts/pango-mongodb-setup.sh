@@ -122,7 +122,7 @@ setup_mongo_auth(){
 setup_pango_collections(){
 	wget https://raw.githubusercontent.com/CEITECHS/pango-env-setup/master/data/propertyunit-data.json
 	wget https://raw.githubusercontent.com/CEITECHS/pango-env-setup/master/data/user-data.json
-	mongo pango --port 27107 --username pangoUserAdmin --password pangoUserAdminPass10 --eval 'db.propertyunit.createIndex( { "location" : "2dsphere" } );' 2>/dev/null
+	mongo --db pango --port 27107 --username pangoUserAdmin --password pangoUserAdminPass10 --eval 'db.propertyunit.createIndex( { "location" : "2dsphere" } );' 2>/dev/null
 	mongoimport --db pango --port 27107 --username pangoUserAdmin --password pangoUserAdminPass10 --collection user --file user-data.json
 	mongoimport --db pango --port 27107 --username pangoUserAdmin --password pangoUserAdminPass10 --collection propertyunit --file propertyunit-data.json	
 	rm user-data.json

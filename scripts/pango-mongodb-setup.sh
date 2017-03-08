@@ -37,6 +37,7 @@ install_mongo
 echo "Please wait I am waiting for mongo to be fully up and running"
 sleep 30
 setup_pango_users
+setup_mongo_auth
 setup_pango_collections
 }
 
@@ -109,6 +110,13 @@ else
     echo "This script need to run on Mongo Primary node"
     exit 1      
 fi
+}
+
+setup_mongo_auth(){
+     wget https://raw.githubusercontent.com/CEITECHS/pango-env-setup/master/config/mongod.conf
+     cp mongod.conf /etc/mongod.conf
+     rm mongod.conf
+     service mongod restart
 }
 
 setup_pango_collections(){

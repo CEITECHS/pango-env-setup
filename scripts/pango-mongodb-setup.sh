@@ -35,7 +35,7 @@ main(){
 install_mongo
 # sleep for sometime to make sure mongo has started
 echo "Please wait I am waiting for mongo to be fully up and running"
-sleep 30
+sleep 5
 setup_pango_users
 setup_mongo_auth
 setup_pango_collections

@@ -54,7 +54,7 @@ then
 	yum install -y mongodb-org
 	# Edit the config file so that mongo binds to all interfaces instead of bust 127.0.0.1
 	sed -i '/#bindIp/! s/bindIp:/#bindIp:/' /etc/mongod.conf
-	service mongod --port 27710 start
+	service mongod start
 	chkconfig mongod on
 else
  echo " Unsupported os version: " ${OPERATING_SYSTEM}

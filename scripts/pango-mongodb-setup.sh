@@ -55,6 +55,7 @@ then
 	yum install -y mongodb-org
 	# Edit the config file so that mongo binds to all interfaces instead of bust 127.0.0.1
 	sed -i '/#bindIp/! s/bindIp:/#bindIp:/' /etc/mongod.conf
+	sed -i 's/27017/27107/' /etc/mongod.conf
 	service mongod start
 	chkconfig mongod on
 else
@@ -84,26 +85,26 @@ if [ $result -eq 0 ]; then
    
     echo "================Creating Admin users in MongoDB========================================================"
 
-     mongo admin --eval 'db.createUser({ user: "'${pango_admin_users[0]}'",  pwd: "'${pango_admin_pwd[0]}'",  roles: [ { role: "root", db: "admin" } , { role: "userAdminAnyDatabase", db: "admin" } ] } );' 2>/dev/null 
+     mongo admin --port 27107  --eval 'db.createUser({ user: "'${pango_admin_users[0]}'",  pwd: "'${pango_admin_pwd[0]}'",  roles: [ { role: "root", db: "admin" } , { role: "userAdminAnyDatabase", db: "admin" } ] } );' 2>/dev/null 
 	 
-     mongo pango --eval 'db.createUser( { user: "'${pango_admin_users[1]}'", pwd: "'${pango_admin_pwd[1]}'", roles: [ { role: "userAdmin", db: "pango" } ] } );' 2>/dev/null
+      mongo pango --port 27107 --eval 'db.createUser( { user: "'${pango_admin_users[1]}'", pwd: "'${pango_admin_pwd[1]}'", roles: [ { role: "userAdmin", db: "pango" } ] } );' 2>/dev/null
 	 
-     mongo pango-verification --eval 'db.createUser( { user: "'${pango_admin_users[1]}'", pwd: "'${pango_admin_pwd[1]}'", roles: [ { role: "userAdmin", db: "pango-verification" } ] } );' 2>/dev/null
+     mongo pango-verification --port 27107  --eval 'db.createUser( { user: "'${pango_admin_users[1]}'", pwd: "'${pango_admin_pwd[1]}'", roles: [ { role: "userAdmin", db: "pango-verification" } ] } );' 2>/dev/null
 
 
     echo "================Creating Read Only users in Mongo DB========================================================"
     
-    mongo pango --eval 'db.createUser( { user: "'${pango_read_users[0]}'", pwd: "'${pango_read_pwd[0]}'", roles: [{ role: "read", db: "pango" }] } );' 2>/dev/null
+    mongo pango --port 27107    --eval 'db.createUser( { user: "'${pango_read_users[0]}'", pwd: "'${pango_read_pwd[0]}'", roles: [{ role: "read", db: "pango" }] } );' 2>/dev/null
 	
-	 mongo pango-verification --eval 'db.createUser( { user: "'${pango_read_users[1]}'", pwd: "'${pango_read_pwd[1]}'", roles: [{ role: "read", db: "pango-verification" }] } );' 2>/dev/null
+	 mongo pango-verification --port 27107   --eval 'db.createUser( { user: "'${pango_read_users[1]}'", pwd: "'${pango_read_pwd[1]}'", roles: [{ role: "read", db: "pango-verification" }] } );' 2>/dev/null
   
 	echo "==================== Completed Read Only users creation in Mongo DB !!!========================================"
 
 	echo "==================================Creating Read Write users in Mongo DB======================================= "
 
-    mongo pango --eval 'db.createUser( { user: "'${pango_rw_users[0]}'", pwd: "'${pango_rw_pwd[0]}'", roles: [{ role: "readWrite", db: "pango" }] } );' 2>/dev/null
+    mongo pango  --port 27107 --eval 'db.createUser( { user: "'${pango_rw_users[0]}'", pwd: "'${pango_rw_pwd[0]}'", roles: [{ role: "readWrite", db: "pango" }] } );' 2>/dev/null
 	
-	mongo pango-verification --eval 'db.createUser( { user: "'${pango_rw_users[1]}'", pwd: "'${pango_rw_pwd[1]}'", roles: [{ role: "readWrite", db: "pango-verification" }] } );' 2>/dev/null
+	mongo pango-verification --port 27107  --eval 'db.createUser( { user: "'${pango_rw_users[1]}'", pwd: "'${pango_rw_pwd[1]}'", roles: [{ role: "readWrite", db: "pango-verification" }] } );' 2>/dev/null
 
 	echo "================Completed Read Write users creation in Mongo DB=================================================="
 else

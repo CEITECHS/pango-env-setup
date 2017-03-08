@@ -77,7 +77,7 @@ create_yum_mongo_repo_file(){
 
 setup_pango_users(){
 #Check if Mongo DB node is Primary
-`mongo --eval 'db.isMaster().ismaster' | grep true 2>/dev/null`
+`mongo --port 27107  --eval 'db.isMaster().ismaster' | grep true 2>/dev/null`
 result=$?
 
 #Run this script only on MongoDB node
